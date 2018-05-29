@@ -14,20 +14,24 @@ Tabunganku Official API.
 
 - Run a PHP built in server from your root project:
 
+```sh
 php -S localhost:8000 -t public/
-
+```
 
 To authenticate a user, make a `POST` request to `v1/oauth/token` with parameter as mentioned below:
 
+```
 grant_type: tabunganku_password
 client_id: 6
 client_secret: 3o1FLhkm0lNB9ZEtu6jFMZyhq1BpKtQbDUWmmegw
 email: johndoe@example.com
 password: johndoe
 scope: *
+```
 
 Response:
 
+```
 {
   "success": {
     "token_type": "Bearer",
@@ -36,8 +40,7 @@ Response:
     "refresh_token": "a_long_refresh_token_appears_here"
   }
 }
-
-
+```
 
 # Lumen PHP Framework
 
