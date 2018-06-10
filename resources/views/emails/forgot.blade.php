@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Aktivasi Akun</title>
+        <title>Forgot Password</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -14,7 +14,7 @@
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
+                color: #000000;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
                 height: 100vh;
@@ -50,7 +50,7 @@
             }
 
             .links > a {
-                color: #636b6f;
+                color: #000000;
                 padding: 0 25px;
                 font-size: 12px;
                 font-weight: 600;
@@ -62,15 +62,45 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .d{
+                margin-top: 20px;
+            }
         </style>
     </head>
     <body>
         <div class="flex-center position-ref full-height">
 
             <div class="content">
-                <div class="title m-b-md">
-                    Akun Anda Telah Aktif.
-                </div>
+                
+                <form action="https://api.dikodingin.com/client/change-password" method="post">
+                    
+                    <table>
+                        <tr>
+                            <td><label for="">Password</label></td>
+                            <td>:</td>
+                            <td><input type="password" name="password" placeholder="Password Baru"></td>
+                        </tr>
+
+                        <tr class="d">
+                            <td><label for="">Konfirmasi Password</label></td>
+                            <td>:</td>
+                            <td><input type="password" name="conf_password" placeholder="Konfirmasi Password"></td>
+                        </tr>
+
+                        <tr class="d">
+                            <td><label for="">Konfirmasi Email</label></td>
+                            <td>:</td>
+                            <td><input type="email" name="email" placeholder="Konfirmasi Email"></td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><input type="submit" value="Update"></td>
+                        </tr>
+                    </table>
+                </form>
 
                 
             </div>

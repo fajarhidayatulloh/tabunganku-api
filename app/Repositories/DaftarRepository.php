@@ -1,4 +1,8 @@
 <?php  
+
+/**
+ * author : Fajar Hidayatulloh
+ */
 namespace App\Repositories;
 
 use Illuminate\Http\Request;
@@ -9,6 +13,10 @@ use DB;
 
 class DaftarRepository implements Contracts{
 	
+    /**
+     * [setRegistration description]
+     * @param [type] $request [description]
+     */
 	public function setRegistration($request) 
 	{
 		$databaseSalt = $this->generate_token(env('SALT_LENGTH'));
@@ -34,7 +42,12 @@ class DaftarRepository implements Contracts{
         
 	}
 
-	// custom token generation from flexi_auth libraries on private-api
+	
+    /**
+     * [custom token generation from flexi_auth libraries on private-api]
+     * @param  integer $length [description]
+     * @return [type]          [description]
+     */
     public function generate_token($length = 8)
     {
         $characters = '23456789BbCcDdFfGgHhJjKkMmNnPpQqRrSsTtVvWwXxYyZz';
@@ -48,6 +61,13 @@ class DaftarRepository implements Contracts{
         return $token;
     }
 
+    /**
+     * [generate_hash_token description]
+     * @param  [type]  $token         [description]
+     * @param  boolean $database_salt [description]
+     * @param  boolean $is_password   [description]
+     * @return [type]                 [description]
+     */
     public function generate_hash_token($token, $database_salt = false, $is_password = false)
     {
         if (empty($token))
@@ -66,6 +86,10 @@ class DaftarRepository implements Contracts{
         }
     }	
 
+    /**
+     * [setActivationToken description]
+     * @param [type] $user_salt [description]
+     */
     public function setActivationToken($user_salt)
     {
         $model = DB::table('users')
@@ -79,6 +103,59 @@ class DaftarRepository implements Contracts{
             ->update(['user_active'=> 1]);
         }
         return $model;
+    }
+
+    public function setCheckEmail($request)
+    {
+        $user = \DB::table('users')
+            ->where('email', $request->email)
+            ->where('user_active', 1)
+            ->first();
+
+        return $user;
+    }
+
+    public function setForgotPassword($request)
+    {
+        $user = \DB::table('users')
+            ->select('*')
+            ->where('email', $request->email)
+            ->first();
+
+        $title = 'Tabunganku';
+        $content = 'Forgot Password';
+        view()->share('user', $user);
+        Mail::send('emails.send_email_forgot', ['title' => $title, 'content' => $content], function ($message) use($user, $content, $title){
+            $message->from('fajarhidayatulloh06@gmail.com', $title);
+            $message->subject($content);
+            $message->to($user->email);
+            
+        });
+
+        return $user;
+    }  
+
+    public function setChangePassword($request)
+    {
+
+        $user = \DB::table('users')
+            ->select('*')
+            ->where('email', $request->email)
+            ->first();
+
+        DB::table('users')
+            ->where('email',$request->email)
+            ->update(['password'=> $this->generate_hash_token($request->password, $user->user_salt, true)]);
+
+        $title = 'Tabunganku';
+        $content = 'Pemberitahuan';
+        view()->share('user', $user);
+        Mail::send('emails.send_email_success', ['title' => $title, 'content' => $content], function ($message) use($user, $content, $title){
+            $message->from('fajarhidayatulloh06@gmail.com', $title);
+            $message->subject($content);
+            $message->to($user->email);
+            
+        });
     }
 }
 

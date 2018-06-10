@@ -1,18 +1,32 @@
 <?php  
+
+/**
+ * author : Fajar Hidayatulloh
+ */
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\DaftarRepository;
 use Illuminate\Http\Request;
+use URL;
 
 class ClientController extends Controller {
 
 	protected $daftarRepository;
 
+	/**
+	 * [__construct description]
+	 * @param DaftarRepository $daftarRepository [description]
+	 */
 	public function __construct(DaftarRepository $daftarRepository){
 		$this->daftarRepository = $daftarRepository;
 	}
 
+	/**
+	 * [getRegistration description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function getRegistration(Request $request) 
 	{
 		
@@ -27,11 +41,16 @@ class ClientController extends Controller {
 			return response()->json([
 				'success' => false,
 				'status_code' => 422,
-				'message' => $e,
+				'message' => 'Registrasi Anda gagal, harap coba beberapa saat lagi.',
 			], 422);
 		}
 	}
 
+	/**
+	 * [getActivationToken description]
+	 * @param  [type] $user_salt [description]
+	 * @return [type]            [description]
+	 */
 	public function getActivationToken($user_salt)
 	{
 		try {
@@ -45,6 +64,56 @@ class ClientController extends Controller {
 			], 422);
 		}
 	}
+
+	/**
+	 * [getForgotPassword description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
+	public function getForgotPassword(Request $request)
+	{
+		try {
+			$user = $this->daftarRepository->setCheckEmail($request);
+			if(!$user) {
+
+				return response()->json([
+					'success' => false,
+					'status_code' => 422,
+					'message' => 'Email yang Anda masukan tidak terdaftar!',
+				], 422);
+
+			}
+
+			$user = $this->daftarRepository->setForgotPassword($request);
+			return response()->json([
+	            'success' => true,
+	            'message' => 'Link Forgot Password sudah dikirim ke email Anda.',
+	        ], 200);
+			
+			
+		} catch(\Exception $e) {
+			return response()->json([
+				'success' => false,
+				'status_code' => 422,
+				'message' => $e,
+			], 422);
+		}
+	}
+
+	public function frontForgotPassword($user_salt)
+	{
+		return view('emails.forgot');
+	}
+
+	public function getChangePassword(Request $request)
+	{
+		
+		
+			$input = $this->daftarRepository->setChangePassword($request);
+			return view('emails.success');
+		
+	}
+
 }
 
 ?>

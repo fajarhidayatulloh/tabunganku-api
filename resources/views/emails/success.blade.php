@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Aktivasi Akun</title>
+        <title>Ubah Password</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -69,7 +69,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Akun Anda Telah Aktif.
+                    Password berhasil di ubah.
                 </div>
 
                 
