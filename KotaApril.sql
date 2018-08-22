@@ -1,0 +1,181 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: Aug 21, 2018 at 03:03 AM
+-- Server version: 5.6.40
+-- PHP Version: 5.6.37
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `brewok_jexpress`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `KotaApril`
+--
+
+CREATE TABLE `KotaApril` (
+  `Kota` varchar(30) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `KotaApril`
+--
+
+INSERT INTO `KotaApril` (`Kota`) VALUES
+('BALIKPAPAN'),
+('BANDA ACEH'),
+('BANDAR LAMPUNG'),
+('BANDUNG BARAT'),
+('BANGKA BELITUNG'),
+('BANJARMASIN'),
+('BANYUWANGI'),
+('BATAM'),
+('BENGKULU'),
+('BERAU'),
+('BIMA'),
+('BLORA'),
+('BONTANG'),
+('BUKITTINGGI'),
+('CENGKARENG BARAT'),
+('CIAMIS'),
+('CIANJUR'),
+('CIBINONG'),
+('CIKAMPEK'),
+('CIKARANG'),
+('CILACAP'),
+('CILEGON'),
+('CIMAHI'),
+('CIPUTAT'),
+('CIREBON'),
+('DELI SERDANG'),
+('DENPASAR'),
+('DUMAI'),
+('DUREN SAWIT'),
+('ENREKANG'),
+('GAMBIR'),
+('GARUT'),
+('GORONTALO'),
+('GOWA'),
+('GRESIK'),
+('GROBOGAN'),
+('GROGOL PETAMBURAN'),
+('INDRAMAYU'),
+('JAMBI'),
+('JEMBER'),
+('KAB. BANDUNG'),
+('KARAWANG'),
+('KEBAYORAN LAMA'),
+('KEBON JERUK'),
+('KEDIRI'),
+('KELAPA GADING'),
+('KEMAYORAN'),
+('KENDARI'),
+('KETAPANG'),
+('KISARAN'),
+('KOTA BANDUNG'),
+('KOTA BEKASI'),
+('KOTA BOGOR'),
+('KOTA DEPOK'),
+('KOTA SERANG'),
+('KOTA TANGERANG'),
+('KRAMAT JATI'),
+('KUBU RAYA'),
+('KUDUS'),
+('KUNINGAN'),
+('KUPANG'),
+('LAMONGAN'),
+('LAMPUNG SELATAN'),
+('LAMPUNG TENGAH'),
+('LAMPUNG TIMUR'),
+('LANGSA'),
+('LEUWISADENG'),
+('MADIUN'),
+('MAGELANG'),
+('MAJALENGKA'),
+('MAKASSAR'),
+('MALANG'),
+('MAMPANG PRAPATAN'),
+('MAMUJU'),
+('MANADO'),
+('MATARAM'),
+('MAUMERE'),
+('MEDAN HELVETIA'),
+('MEDAN JOHOR'),
+('MOJOKERTO'),
+('PADANG'),
+('PALANGKARAYA'),
+('PALEMBANG'),
+('PALU'),
+('PANCORAN'),
+('PARE-PARE'),
+('PARIAMAN'),
+('PASAR KEMIS'),
+('PASAR MINGGU'),
+('PASURUAN'),
+('PAYAKUMBUH'),
+('PEKALONGAN'),
+('PEKANBARU'),
+('PEMATANG SIANTAR'),
+('PENAJAM PASER UTARA'),
+('PENJARINGAN'),
+('PONOROGO'),
+('PONTIANAK'),
+('PRABUMULIH'),
+('PROBOLINGGO'),
+('PURWAKARTA'),
+('PURWOKERTO'),
+('SAMARINDA'),
+('SAMPANG'),
+('SANGGAU'),
+('SEMARANG'),
+('SERPONG'),
+('SIBOLGA'),
+('SIDOARJO'),
+('SINGKAWANG'),
+('SINTANG'),
+('SLEMAN'),
+('SOLO'),
+('STABAT'),
+('SUKABUMI'),
+('SUMBAWA'),
+('SUMEDANG'),
+('Sungai Pinyuh'),
+('SURABAYA'),
+('TANGGAMUS'),
+('TANJUNG PINANG'),
+('TARAKAN'),
+('TEGAL'),
+('TIGARAKSA'),
+('TULANG BAWANG'),
+('TULUNGAGUNG'),
+('YOGYAKARTA');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `KotaApril`
+--
+ALTER TABLE `KotaApril`
+  ADD UNIQUE KEY `Kota` (`Kota`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
