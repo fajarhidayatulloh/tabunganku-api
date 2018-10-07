@@ -1,4 +1,4 @@
-<?php  
+<?php
 namespace App\Http\Controllers\Tabungan;
 
 use App\Http\Controllers\Controller;
@@ -8,23 +8,31 @@ class TabunganController extends Controller {
 
 	protected $tabunganRepository;
 
-	public function __construct(TabunganRepository $tabunganRepository)
-	{
+	/**
+	 * [author Fajar Hidayatulloh]
+	 * [__construct description]
+	 * @param TabunganRepository $tabunganRepository [description]
+	 */
+	public function __construct(TabunganRepository $tabunganRepository) {
 		$this->tabunganRepository = $tabunganRepository;
 	}
 
-	public function getDataTabungan()
-	{
+	/**
+	 * [author Fajar Hidayatulloh]
+	 * [getDataTabungan description]
+	 * @return [type] [description]
+	 */
+	public function getDataTabungan() {
 		try {
 
 			$model = $this->tabunganRepository->setDataTabungan();
 			return response()->json([
 				'success' => true,
 				'status_code' => 200,
-				'data' => $model
+				'data' => $model,
 			], 200);
 
-		} catch(\Exception $e) {
+		} catch (\Exception $e) {
 
 			return response()->json([
 				'success' => false,
