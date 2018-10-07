@@ -1,4 +1,4 @@
-<?php  
+<?php
 
 /**
  * author : Fajar Hidayatulloh
@@ -8,36 +8,36 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Repositories\DaftarRepository;
 use Illuminate\Http\Request;
-use URL;
 
 class ClientController extends Controller {
 
 	protected $daftarRepository;
 
 	/**
+	 * [author Fajar Hidayatulloh]
 	 * [__construct description]
 	 * @param DaftarRepository $daftarRepository [description]
 	 */
-	public function __construct(DaftarRepository $daftarRepository){
+	public function __construct(DaftarRepository $daftarRepository) {
 		$this->daftarRepository = $daftarRepository;
 	}
 
 	/**
+	 * [author Fajar Hidayatulloh]
 	 * [getRegistration description]
 	 * @param  Request $request [description]
 	 * @return [type]           [description]
 	 */
-	public function getRegistration(Request $request) 
-	{
-		
+	public function getRegistration(Request $request) {
+
 		try {
 			$input = $this->daftarRepository->setRegistration($request);
 			return response()->json([
 				'success' => true,
 				'status_code' => 200,
-				'message' => 'Registrasi Berhasil, Cek Email Anda untuk Aktivasi.'
+				'message' => 'Registrasi Berhasil, Cek Email Anda untuk Aktivasi.',
 			], 200);
-		} catch(\Exception $e) {
+		} catch (\Exception $e) {
 			return response()->json([
 				'success' => false,
 				'status_code' => 422,
@@ -47,16 +47,16 @@ class ClientController extends Controller {
 	}
 
 	/**
+	 * [author Fajar Hidayatulloh]
 	 * [getActivationToken description]
 	 * @param  [type] $user_salt [description]
 	 * @return [type]            [description]
 	 */
-	public function getActivationToken($user_salt)
-	{
+	public function getActivationToken($user_salt) {
 		try {
 			$input = $this->daftarRepository->setActivationToken($user_salt);
 			return view('emails.aktivasi');
-		} catch(\Exception $e) {
+		} catch (\Exception $e) {
 			return response()->json([
 				'success' => false,
 				'status_code' => 422,
@@ -66,15 +66,15 @@ class ClientController extends Controller {
 	}
 
 	/**
+	 * [author Fajar Hidayatulloh]
 	 * [getForgotPassword description]
 	 * @param  Request $request [description]
 	 * @return [type]           [description]
 	 */
-	public function getForgotPassword(Request $request)
-	{
+	public function getForgotPassword(Request $request) {
 		try {
 			$user = $this->daftarRepository->setCheckEmail($request);
-			if(!$user) {
+			if (!$user) {
 
 				return response()->json([
 					'success' => false,
@@ -86,12 +86,11 @@ class ClientController extends Controller {
 
 			$user = $this->daftarRepository->setForgotPassword($request);
 			return response()->json([
-	            'success' => true,
-	            'message' => 'Link Forgot Password sudah dikirim ke email Anda.',
-	        ], 200);
-			
-			
-		} catch(\Exception $e) {
+				'success' => true,
+				'message' => 'Link Forgot Password sudah dikirim ke email Anda.',
+			], 200);
+
+		} catch (\Exception $e) {
 			return response()->json([
 				'success' => false,
 				'status_code' => 422,
@@ -100,18 +99,27 @@ class ClientController extends Controller {
 		}
 	}
 
-	public function frontForgotPassword($user_salt)
-	{
+	/**
+	 * [author Fajar Hidayatulloh]
+	 * [frontForgotPassword description]
+	 * @param  [type] $user_salt [description]
+	 * @return [type]            [description]
+	 */
+	public function frontForgotPassword($user_salt) {
 		return view('emails.forgot');
 	}
 
-	public function getChangePassword(Request $request)
-	{
-		
-		
-			$input = $this->daftarRepository->setChangePassword($request);
-			return view('emails.success');
-		
+	/**
+	 * [author Fajar Hidayatulloh]
+	 * [getChangePassword description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
+	public function getChangePassword(Request $request) {
+
+		$input = $this->daftarRepository->setChangePassword($request);
+		return view('emails.success');
+
 	}
 
 }

@@ -17,3 +17,4 @@ require app()->path() . '/Http/Controllers/Pemasukan/PemasukanRoutes.php';
 require app()->path() . '/Http/Controllers/Pengeluaran/PengeluaranRoutes.php';
 require app()->path() . '/Http/Controllers/Tabungan/TabunganRoutes.php';
 require app()->path() . '/Http/Controllers/Client/ClientRoutes.php';
+require app()->path() . '/Http/Controllers/Qurban/QurbanRoutes.php';
