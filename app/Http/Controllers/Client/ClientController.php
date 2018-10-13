@@ -22,6 +22,15 @@ class ClientController extends Controller {
 		$this->daftarRepository = $daftarRepository;
 	}
 
+	public function getProfile() {
+		$user = getUser();
+		return response()->json([
+			'success' => true,
+			'status_code' => 200,
+			'data' => $user,
+		], 200);
+	}
+
 	/**
 	 * [author Fajar Hidayatulloh]
 	 * [getRegistration description]
