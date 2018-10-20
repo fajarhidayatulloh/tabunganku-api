@@ -14,6 +14,7 @@ class ClientController extends Controller {
 	protected $daftarRepository;
 
 	/**
+	 * [author Fajar Hidayatulloh]
 	 * [__construct description]
 	 * @param DaftarRepository $daftarRepository [description]
 	 */
@@ -21,7 +22,17 @@ class ClientController extends Controller {
 		$this->daftarRepository = $daftarRepository;
 	}
 
+	public function getProfile() {
+		$user = getUser();
+		return response()->json([
+			'success' => true,
+			'status_code' => 200,
+			'data' => $user,
+		], 200);
+	}
+
 	/**
+	 * [author Fajar Hidayatulloh]
 	 * [getRegistration description]
 	 * @param  Request $request [description]
 	 * @return [type]           [description]
@@ -45,6 +56,7 @@ class ClientController extends Controller {
 	}
 
 	/**
+	 * [author Fajar Hidayatulloh]
 	 * [getActivationToken description]
 	 * @param  [type] $user_salt [description]
 	 * @return [type]            [description]
@@ -63,6 +75,7 @@ class ClientController extends Controller {
 	}
 
 	/**
+	 * [author Fajar Hidayatulloh]
 	 * [getForgotPassword description]
 	 * @param  Request $request [description]
 	 * @return [type]           [description]
@@ -95,15 +108,26 @@ class ClientController extends Controller {
 		}
 	}
 
+	/**
+	 * [author Fajar Hidayatulloh]
+	 * [frontForgotPassword description]
+	 * @param  [type] $user_salt [description]
+	 * @return [type]            [description]
+	 */
 	public function frontForgotPassword($user_salt) {
 		return view('emails.forgot');
 	}
 
+	/**
+	 * [author Fajar Hidayatulloh]
+	 * [getChangePassword description]
+	 * @param  Request $request [description]
+	 * @return [type]           [description]
+	 */
 	public function getChangePassword(Request $request) {
 
 		$input = $this->daftarRepository->setChangePassword($request);
 		return view('emails.success');
-
 	}
 
 	/**

@@ -1,12 +1,12 @@
 <?php
 namespace App\Repositories;
 
-use App\Model\Pemasukan;
-use App\Repositories\Contracts\PemasukanRepository as Contracts;
+use App\Model\Qurban;
+use App\Repositories\Contracts\QurbanRepository as Contracts;
 use Cache;
 use Illuminate\Http\Request;
 
-class PemasukanRepository implements Contracts {
+class QurbanRepository implements Contracts {
 
 	/**
 	 * [author Fajar Hidayatulloh]
@@ -14,9 +14,9 @@ class PemasukanRepository implements Contracts {
 	 */
 	public function setListData() {
 		$expiredAt = \Carbon\Carbon::now()->addMinutes(5);
-		$keyCache = 'tabunganku:setListDataPemasukan';
+		$keyCache = 'tabunganku:setListDataQurban';
 		$setListData = Cache::remember($keyCache, $expiredAt, function () {
-			$model = Pemasukan::where('id_user', \Auth::user()->id)->select('*')->get();
+			$model = Qurban::where('id_user', \Auth::user()->id)->select('*')->get();
 			return $model;
 		});
 		return $setListData;
@@ -24,19 +24,19 @@ class PemasukanRepository implements Contracts {
 
 	/**
 	 * [author Fajar Hidayatulloh]
-	 * [setDataPemasukan description]
+	 * [setDataQurban description]
 	 */
-	public function setDataPemasukan() {
+	public function setDataQurban() {
 		$expiredAt = \Carbon\Carbon::now()->addMinutes(5);
-		$keyCache = 'tabunganku:setDataPemasukan';
-		$pemasukanku = 0;
-		$setData = Cache::remember($keyCache, $expiredAt, function () use ($pemasukanku) {
-			$pemasukan = Pemasukan::select('jumlah')->where('id_user', \Auth::user()->id)->get();
-			foreach ($pemasukan as $row) {
-				$pemasukanku += $row->jumlah;
+		$keyCache = 'tabunganku:setDataQurban';
+		$Qurbanku = 0;
+		$setData = Cache::remember($keyCache, $expiredAt, function () use ($Qurbanku) {
+			$Qurban = Qurban::select('jumlah')->where('id_user', \Auth::user()->id)->get();
+			foreach ($Qurban as $row) {
+				$Qurbanku += $row->jumlah;
 			}
 			$customMeta = [
-				'totalPemasukan' => number_format($pemasukanku, 2, ',', '.'),
+				'totalQurban' => number_format($Qurbanku, 2, ',', '.'),
 				'currency' => 'IDR',
 
 			];
@@ -55,7 +55,7 @@ class PemasukanRepository implements Contracts {
 	 */
 	public function store($request) {
 
-		$input = new Pemasukan;
+		$input = new Qurban;
 		$input->title = $request->title;
 		$input->deskripsi = $request->deskripsi;
 		$input->jumlah = $request->jumlah;

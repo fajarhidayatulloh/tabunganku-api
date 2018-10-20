@@ -7,4 +7,6 @@ Route::group(['namespace' => 'Client', 'prefix' => 'client'], function () {
 	Route::get('/logout', 'ClientController@logout');
 	Route::get('/forgot-password/{user_salt}', 'ClientController@frontForgotPassword');
 	Route::post('/change-password', 'ClientController@getChangePassword');
+	Route::get('/getProfile', 'ClientController@getProfile');
+
 });

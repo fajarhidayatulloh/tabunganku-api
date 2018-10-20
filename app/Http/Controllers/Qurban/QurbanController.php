@@ -1,69 +1,57 @@
 <?php
-namespace App\Http\Controllers\Pengeluaran;
+namespace App\Http\Controllers\Qurban;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\PengeluaranRepository;
+use App\Repositories\QurbanRepository;
 use Illuminate\Http\Request;
 
-class PengeluaranController extends Controller {
+class QurbanController extends Controller {
 
-	protected $pengeluaranRepository;
+	protected $qurbanRepository;
 
-	/**
-	 * [author Fajar Hidayatulloh]
-	 * [__construct description]
-	 * @param PengeluaranRepository $pengeluaranRepository [description]
-	 */
-	public function __construct(PengeluaranRepository $pengeluaranRepository) {
-		$this->pengeluaranRepository = $pengeluaranRepository;
+	public function __construct(QurbanRepository $qurbanRepository) {
+		$this->qurbanRepository = $qurbanRepository;
 	}
 
 	/**
 	 * [author Fajar Hidayatulloh]
-	 * [index description]
+	 * [getListData description]
 	 * @return [type] [description]
 	 */
-	public function index() {
+	public function getListData() {
 
 		try {
-
-			$model = $this->pengeluaranRepository->setListData();
+			$model = $this->qurbanRepository->setListData();
 			return response()->json([
 				'success' => true,
 				'status_code' => 200,
 				'data' => $model,
 			]);
-
 		} catch (\Exception $e) {
-
 			return response()->json([
 				'success' => false,
 			], 422);
-
 		}
 	}
 
 	/**
 	 * [author Fajar Hidayatulloh]
-	 * [getDataPengeluaran description]
+	 * [getDataPemasukan description]
 	 * @return [type] [description]
 	 */
-	public function getDataPengeluaran() {
+	public function getDataQurban() {
 		try {
 
-			$model = $this->pengeluaranRepository->setDataPengeluaran();
+			$model = $this->qurbanRepository->setDataQurban();
 			return response()->json([
 				'success' => true,
 				'status_code' => 200,
 				'data' => $model,
 			]);
-
 		} catch (\Exception $e) {
-
 			return response()->json([
 				'success' => false,
 			], 422);
-
 		}
 	}
 
@@ -76,22 +64,18 @@ class PengeluaranController extends Controller {
 	public function tambah(Request $request) {
 
 		try {
-
-			$input = $this->pengeluaranRepository->store($request);
+			$input = $this->qurbanRepository->store($request);
 			return response()->json([
 				'success' => true,
 				'status_code' => 200,
 				'message' => 'Data Berhasil di Tambah',
 			], 200);
-
 		} catch (\Exception $e) {
-
 			return response()->json([
 				'success' => false,
 				'status_code' => 422,
 				'message' => 'Gagal Input Data',
 			], 422);
-
 		}
 	}
 }
