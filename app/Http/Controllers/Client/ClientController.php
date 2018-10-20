@@ -1,4 +1,4 @@
-<?php  
+<?php
 
 /**
  * author : Fajar Hidayatulloh
@@ -8,7 +8,6 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Repositories\DaftarRepository;
 use Illuminate\Http\Request;
-use URL;
 
 class ClientController extends Controller {
 
@@ -18,7 +17,7 @@ class ClientController extends Controller {
 	 * [__construct description]
 	 * @param DaftarRepository $daftarRepository [description]
 	 */
-	public function __construct(DaftarRepository $daftarRepository){
+	public function __construct(DaftarRepository $daftarRepository) {
 		$this->daftarRepository = $daftarRepository;
 	}
 
@@ -27,17 +26,16 @@ class ClientController extends Controller {
 	 * @param  Request $request [description]
 	 * @return [type]           [description]
 	 */
-	public function getRegistration(Request $request) 
-	{
-		
+	public function getRegistration(Request $request) {
+
 		try {
 			$input = $this->daftarRepository->setRegistration($request);
 			return response()->json([
 				'success' => true,
 				'status_code' => 200,
-				'message' => 'Registrasi Berhasil, Cek Email Anda untuk Aktivasi.'
+				'message' => 'Registrasi Berhasil, Cek Email Anda untuk Aktivasi.',
 			], 200);
-		} catch(\Exception $e) {
+		} catch (\Exception $e) {
 			return response()->json([
 				'success' => false,
 				'status_code' => 422,
@@ -51,12 +49,11 @@ class ClientController extends Controller {
 	 * @param  [type] $user_salt [description]
 	 * @return [type]            [description]
 	 */
-	public function getActivationToken($user_salt)
-	{
+	public function getActivationToken($user_salt) {
 		try {
 			$input = $this->daftarRepository->setActivationToken($user_salt);
 			return view('emails.aktivasi');
-		} catch(\Exception $e) {
+		} catch (\Exception $e) {
 			return response()->json([
 				'success' => false,
 				'status_code' => 422,
@@ -70,11 +67,10 @@ class ClientController extends Controller {
 	 * @param  Request $request [description]
 	 * @return [type]           [description]
 	 */
-	public function getForgotPassword(Request $request)
-	{
+	public function getForgotPassword(Request $request) {
 		try {
 			$user = $this->daftarRepository->setCheckEmail($request);
-			if(!$user) {
+			if (!$user) {
 
 				return response()->json([
 					'success' => false,
@@ -86,12 +82,11 @@ class ClientController extends Controller {
 
 			$user = $this->daftarRepository->setForgotPassword($request);
 			return response()->json([
-	            'success' => true,
-	            'message' => 'Link Forgot Password sudah dikirim ke email Anda.',
-	        ], 200);
-			
-			
-		} catch(\Exception $e) {
+				'success' => true,
+				'message' => 'Link Forgot Password sudah dikirim ke email Anda.',
+			], 200);
+
+		} catch (\Exception $e) {
 			return response()->json([
 				'success' => false,
 				'status_code' => 422,
@@ -100,18 +95,26 @@ class ClientController extends Controller {
 		}
 	}
 
-	public function frontForgotPassword($user_salt)
-	{
+	public function frontForgotPassword($user_salt) {
 		return view('emails.forgot');
 	}
 
-	public function getChangePassword(Request $request)
-	{
-		
-		
-			$input = $this->daftarRepository->setChangePassword($request);
-			return view('emails.success');
-		
+	public function getChangePassword(Request $request) {
+
+		$input = $this->daftarRepository->setChangePassword($request);
+		return view('emails.success');
+
+	}
+
+	/**
+	 * [logout will revoke access token and delete the token from database]
+	 * @param  Request $request [description]
+	 * @return [type]           [json response logout status]
+	 */
+	public function logout(Request $request) {
+		$request->user()->token()->revoke();
+		$logout = $request->user()->token()->delete();
+		return response()->json(array('success' => $logout, 'status_code' => '200'), '200');
 	}
 
 }
