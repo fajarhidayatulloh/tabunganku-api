@@ -128,7 +128,17 @@ class ClientController extends Controller {
 
 		$input = $this->daftarRepository->setChangePassword($request);
 		return view('emails.success');
+	}
 
+	/**
+	 * [logout will revoke access token and delete the token from database]
+	 * @param  Request $request [description]
+	 * @return [type]           [json response logout status]
+	 */
+	public function logout(Request $request) {
+		$request->user()->token()->revoke();
+		$logout = $request->user()->token()->delete();
+		return response()->json(array('success' => $logout, 'status_code' => '200'), '200');
 	}
 
 }
